@@ -18,6 +18,8 @@ int main()
 
 	myController.displayData();
 
+	myController.addTask( Task{ 3, "Training MVC" } );
+
 
 	return 0;
 }

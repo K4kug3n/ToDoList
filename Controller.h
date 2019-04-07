@@ -12,6 +12,7 @@ public:
 
 	void setModel(Model const& model);
 	void setView(View const& view);
+	void addTask(Task const& task);
 	void displayData() const;
 
 	~Controller();
