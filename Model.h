@@ -1,19 +1,20 @@
-#pragma once
+#ifndef MODEL_H
+#define MODEL_H
 
-#include "Commun.h"
 #include <vector>
+#include "commun.h"
 
 class Model
 {
 public:
-	Model();
-	
-	std::vector<Task> getData() const;
-	void setData(std::vector<Task> const& data);
+    Model();
 
-	~Model();
+    void addTask(Task const& task);
+    void deleteTask(Task const& task);
+    std::vector<Task> getTasks() const;
 
 private:
-	std::vector<Task> data;
+    std::vector<Task> tasks;
 };
 
+#endif // MODEL_H

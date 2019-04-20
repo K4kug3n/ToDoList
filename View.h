@@ -1,17 +1,17 @@
-#pragma once
+#ifndef VIEW_H
+#define VIEW_H
 
-#include "Commun.h"
-#include <vector>
+#include "mainwindow.h"
 
 class View
 {
 public:
-	View();
+    View();
 
-	void render(std::vector<Task> const& data) const;
-
-	~View();
+    void display();
 
 private:
-	void printTask(Task const& task) const;
+    MainWindow window;
 };
+
+#endif // VIEW_H

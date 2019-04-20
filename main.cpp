@@ -1,25 +1,18 @@
-#include <iostream>
+#include <QApplication>
 
-#include "Model.h"
-#include "Controller.h"
-#include "View.h"
+#include "model.h"
+#include "controller.h"
+#include "view.h"
 
-int main()
+int main(int argc, char *argv[])
 {
-	std::vector<Task> myTasks;
-	myTasks.push_back( Task{ 1, "Do app" } );
-	myTasks.push_back( Task{ 2, "Do web" } );
+    QApplication a{argc, argv};
 
-	Model myModel;
-	myModel.setData(myTasks);
+    Model myModel{};
+    Controller myController{};
+    View myView{};
 
-	Controller myController;
-	myController.setModel(myModel);
+    myView.display();
 
-	myController.displayData();
-
-	myController.addTask( Task{ 3, "Training MVC" } );
-
-
-	return 0;
+    return a.exec();
 }

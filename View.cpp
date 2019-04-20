@@ -1,24 +1,11 @@
-#include "View.h"
-
-#include <iostream>
+#include "view.h"
 
 View::View()
 {
 }
 
-void View::render(std::vector<Task> const& data) const
+void View::display()
 {
-	for(auto const& task : data)
-	{
-		printTask(task);
-	}
-}
-
-void View::printTask(Task const& task) const
-{
-	std::cout << "Priority " << task.priority << "\t" << task.description << std::endl;
-}
-
-View::~View()
-{
+    window.setFixedSize(620, 460);
+    window.show();
 }
