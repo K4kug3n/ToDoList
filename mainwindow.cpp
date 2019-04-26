@@ -1,8 +1,6 @@
 #include "mainwindow.h"
-#include "taskwidget.h"
 
 #include <QVBoxLayout>
-#include <QSpacerItem>
 #include <QScrollArea>
 #include <QScrollBar>
 
@@ -10,10 +8,41 @@
 #include <QColor>
 #include <QRgb>
 
+//#include <iostream>
+#include <algorithm>
+
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow{ parent }
+    : QMainWindow{ parent },
+      taskLayout{ new QVBoxLayout() },
+      taskInputWidget{new TaskInputWidget() }
 {
     setupInterface();
+    setupConnection();
+}
+
+void MainWindow::addTask(int priority, QString const& description)
+{
+    TaskWidget * taskWidget{ new TaskWidget(priority, description) };
+    taskWidget->setFixedHeight(60);
+    taskWidget->setMaximumWidth(620);
+
+    int index{ static_cast<int>(taskWidgets.size()) };
+    taskLayout->insertWidget(index, taskWidget);
+
+    setupConnection(taskWidget);
+
+    taskWidgets.push_back(taskWidget);
+}
+
+void MainWindow::deleteTask(int priority, QString const& description)
+{
+    const auto tasks_it = std::find_if(taskWidgets.begin(), taskWidgets.end(),
+                [priority, description](auto t) { return (priority == t->priority && description == t->description); });
+
+    taskLayout->removeWidget(*tasks_it);
+    (*tasks_it)->deleteLater();
+
+    taskWidgets.erase(tasks_it);
 }
 
 void MainWindow::setupInterface()
@@ -26,38 +55,50 @@ void MainWindow::setupInterface()
     centralWidget->setAutoFillBackground(true);
     centralWidget->setPalette(pal);
 
-    QVBoxLayout * layout{ new QVBoxLayout() };
-
-    TaskWidget * task{ new TaskWidget("1", "Finish this") };
-    task->setFixedHeight(60);
-    task->setMaximumWidth(600);
-    layout->addWidget(task);
-
-    TaskWidget * task2{ new TaskWidget("2", "Finish other things") };
-    task2->setFixedHeight(60);
-    task2->setMaximumWidth(600);
-    layout->addWidget(task2);
-
-    TaskWidget * task3{ new TaskWidget("3", "Finish shitty things") };
-    task3->setFixedHeight(60);
-    task3->setMaximumWidth(600);
-    layout->addWidget(task3);
+    taskInputWidget->setFixedHeight(60);
+    taskInputWidget->setMaximumWidth(620);
 
 
-    layout->addSpacerItem(new QSpacerItem{ 600, 460 });
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->setSpacing(0);
+    taskLayout->setAlignment(Qt::AlignTop);
+    taskLayout->setContentsMargins(0, 0, 0, 0);
+    taskLayout->setSpacing(0);
+    taskLayout->addWidget(taskInputWidget);
 
-    centralWidget->setLayout(layout);
+    centralWidget->setLayout(taskLayout);
 
     QScrollArea * scrollArea{ new QScrollArea() };
     scrollArea->setWidget(centralWidget);
+    scrollArea->setWidgetResizable(true);
     scrollArea->horizontalScrollBar()->setEnabled(false);
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     setCentralWidget(scrollArea);
 }
 
+void MainWindow::setupConnection()
+{
+    QObject::connect(taskInputWidget, &TaskInputWidget::inputSignal, this, &MainWindow::inputSlot);
+}
+
+void MainWindow::setupConnection(TaskWidget * widget)
+{
+    QObject::connect(widget, &TaskWidget::deleteSignal, this, &MainWindow::removeSlot);
+}
+
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::inputSlot(int priority, const QString &description)
+{
+    //std::cout << "Input slot actived (window)" << std::endl;
+
+    emit inputSignal(priority, description);
+}
+
+void MainWindow::removeSlot(int priority, const QString &description)
+{
+    //std::cout << "Remove slot actived (window)" << std::endl;
+
+    emit removeSignal(priority, description);
 }

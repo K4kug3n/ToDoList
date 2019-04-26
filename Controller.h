@@ -1,15 +1,18 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "view.h"
+#include "model.h"
 
 class Controller
 {
 public:
-    Controller();
+    Controller(Model & model);
+
+    void taskInput(int priority, QString const& description);
+    void taskRemove(int priority, QString const& description);
 
 private:
-    View view;
+    Model & model;
 };
 
 #endif // CONTROLLER_H

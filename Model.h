@@ -2,9 +2,10 @@
 #define MODEL_H
 
 #include <vector>
-#include "commun.h"
+#include "task.h"
+#include "observable.h"
 
-class Model
+class Model : public Observable
 {
 public:
     Model();
@@ -12,6 +13,7 @@ public:
     void addTask(Task const& task);
     void deleteTask(Task const& task);
     std::vector<Task> getTasks() const;
+    void printTask() const;
 
 private:
     std::vector<Task> tasks;

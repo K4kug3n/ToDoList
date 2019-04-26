@@ -5,33 +5,40 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QString>
+#include <QCheckBox>
 
 class TaskWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    TaskWidget(QString priority, QString description, QWidget *parent = nullptr);
+    TaskWidget(int priority, QString const& description, QWidget *parent = nullptr);
 
     void paintEvent(QPaintEvent * ) override;
 
+    const int priority;
+    const QString description;
+
 signals:
-    void deleted();
-    void edited(int priority, QString description);
+    void deleteSignal(int priority, QString const& description);
+    void editSignal(int priority, QString description);
 
 private slots:
-    void editSlot();
-    void deleteSlot();
+    //void editSlot();
+    void removeSlot();
+    void checkSlot(int state);
 
 private:
 
     void setupInterface();
-    void setupButtons();
+    void setupConnection();
+    void updateState(bool checked);
 
-    QLabel * priority;
-    QLabel * description;
+    QLabel * priorityLabel;
+    QLabel * descriptionLabel;
     QPushButton * editButton;
     QPushButton * deleteButton;
+    QCheckBox * checkBox;
 };
 
 #endif // TASKWIDGET_H

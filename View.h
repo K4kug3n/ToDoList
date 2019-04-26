@@ -2,16 +2,29 @@
 #define VIEW_H
 
 #include "mainwindow.h"
+#include "model.h"
+#include "controller.h"
+#include "observer.h"
 
-class View
+class View : public Observer
 {
 public:
-    View();
+    View(Model & model, Controller & controller);
 
     void display();
+    void input_update(int priority, QString const& description) override;
+    void delete_update(int priority, QString const& description) override;
+
+    ~View() override;
 
 private:
+    void setupInterface();
+    void setupInput();
+    void setupDelete();
+
     MainWindow window;
+    Model & model;
+    Controller & controller;
 };
 
 #endif // VIEW_H
