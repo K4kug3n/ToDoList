@@ -3,6 +3,7 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QScrollBar>
+#include <QSpacerItem>
 
 #include <QPalette>
 #include <QColor>
