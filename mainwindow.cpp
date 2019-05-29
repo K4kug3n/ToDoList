@@ -3,13 +3,13 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QScrollBar>
-#include <QSpacerItem>
 
 #include <QPalette>
 #include <QColor>
 #include <QRgb>
 
-//#include <iostream>
+#include <QMenuBar>
+
 #include <algorithm>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setupInterface();
     setupConnection();
+    setupMenu();
 }
 
 void MainWindow::addTask(int priority, QString const& description)
@@ -79,6 +80,18 @@ void MainWindow::setupInterface()
 void MainWindow::setupConnection()
 {
     QObject::connect(taskInputWidget, &TaskInputWidget::inputSignal, this, &MainWindow::inputSlot);
+}
+
+void MainWindow::setupMenu()
+{
+    QMenu * fileMenu{ menuBar()->addMenu("&File") };
+
+    QAction * quitAction{ new QAction("&Quit", this) };
+    fileMenu->addAction(quitAction);
+
+    QMenu * editMenu{ menuBar()->addMenu("&Edit") };
+    QAction * addAction{ new QAction("&Add Task", this) };
+    editMenu->addAction(addAction);
 }
 
 void MainWindow::setupConnection(TaskWidget * widget)

@@ -16,12 +16,6 @@ int main(int argc, char *argv[])
 
     myModel.addObserver(ptrView);
 
-
-//    for(auto i{0}; i < 20; i++)
-//    {
-//        myModel.addTask( Task{ 1, "Finish this"} );
-//    }
-
     ptrView->display();
 
     return a.exec();

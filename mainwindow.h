@@ -31,6 +31,7 @@ private slots:
 private:
     void setupInterface();
     void setupConnection();
+    void setupMenu();
     void setupConnection(TaskWidget * widget);
 
     QVBoxLayout * taskLayout;

@@ -24,7 +24,6 @@ signals:
     void editSignal(int priority, QString description);
 
 private slots:
-    //void editSlot();
     void removeSlot();
     void checkSlot(int state);
 
@@ -36,7 +35,6 @@ private:
 
     QLabel * priorityLabel;
     QLabel * descriptionLabel;
-    QPushButton * editButton;
     QPushButton * deleteButton;
     QCheckBox * checkBox;
 };

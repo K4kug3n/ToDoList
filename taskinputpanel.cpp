@@ -1,7 +1,5 @@
 #include "taskinputpanel.h"
 
-#include <iostream>
-
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>

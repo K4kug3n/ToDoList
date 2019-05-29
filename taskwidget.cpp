@@ -10,7 +10,6 @@ TaskWidget::TaskWidget(int priority, QString const& description, QWidget *parent
       description{ description },
       priorityLabel{ new QLabel(QString::number(priority)) },
       descriptionLabel{ new QLabel(description) },
-      editButton{ new QPushButton("Edit") },
       deleteButton{ new QPushButton("Delete") },
       checkBox{ new QCheckBox() }
 {
@@ -25,11 +24,6 @@ void TaskWidget::paintEvent(QPaintEvent *)
     QPainter p{ this };
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
-
-//void TaskWidget::editSlot()
-//{
-//    emit editSignal(2, "Things");
-//}
 
 void TaskWidget::removeSlot()
 {
@@ -56,12 +50,8 @@ void TaskWidget::setupInterface()
 {
     updateState(false);
 
-    editButton->resize(50, 50);
-    deleteButton->resize(50, 50);
-
     QHBoxLayout * optionLayout{ new QHBoxLayout() };
     optionLayout->addWidget(checkBox);
-    optionLayout->addWidget(editButton);
     optionLayout->addWidget(deleteButton);
 
     QHBoxLayout * centralLayout{ new QHBoxLayout() };
@@ -73,7 +63,6 @@ void TaskWidget::setupInterface()
 
 void TaskWidget::setupConnection()
 {
-    //QObject::connect(editButton, &QPushButton::clicked, this, &TaskWidget::editSlot);
     QObject::connect(deleteButton, &QPushButton::clicked, this, &TaskWidget::removeSlot);
     QObject::connect(checkBox, &QCheckBox::stateChanged, this, &TaskWidget::checkSlot);
 }

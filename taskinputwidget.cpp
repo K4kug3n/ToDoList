@@ -4,8 +4,6 @@
 #include <QStyleOption>
 #include <QPainter>
 
-#include <iostream>
-
 TaskInputWidget::TaskInputWidget(QWidget *parent):
     QWidget{ parent },
     inputButton{ new QPushButton("+") }
@@ -29,11 +27,6 @@ void TaskInputWidget::inputSlot(int priority, const QString &description)
 
 void TaskInputWidget::setupInterface()
 {   
-//    setStyleSheet("TaskInputWidget{ background-color: inherit }"
-//                  "QPushButton{ background-color: black; color: white }"
-//                  "QPushButton::hover{ background-color: grey; color: black; }");
-
-
     QHBoxLayout * layout{ new QHBoxLayout() };
     layout->addWidget(inputButton);
     setLayout(layout);

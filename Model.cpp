@@ -27,12 +27,3 @@ std::vector<Task> Model::getTasks() const
 {
     return tasks;
 }
-
-void Model::printTask() const
-{
-    std::cout << "Tasks : " << std::endl;
-    for(auto const& t : tasks)
-    {
-        std::cout << "\t -" << t.priority << " - " << t.description.toStdString() << std::endl;
-    }
-}
