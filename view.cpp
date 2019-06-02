@@ -1,35 +1,54 @@
 #include "view.h"
 
+#include <iostream>
+
 View::View(Model & model, Controller & controller):
     model{ model },
     controller{ controller }
 {
-    model.addObserver(*this);
-    setup();
+    setupInterface();
+    setupConnections();
 }
 
 void View::display()
 {   
-//    window.addTask(Task{1, "Finish this"});
-//    window.addTask(Task{2, "Finish other things"});
-//    window.addTask(Task{3, "Finish shitty things"});
-
     window.show();
 }
 
-void View::update()
+void View::delete_update(int priority, QString const& description)
 {
-    for(auto const& task : model.getTasks())
-    {
-        window.addTask(task);
-    }
+    window.deleteTask(priority, description);
+}
+
+void View::input_update(int priority, QString const& description)
+{
+    window.addTask(priority, description);
 }
 
 View::~View()
 {
 }
 
-void View::setup()
+void View::setupInterface()
 {
     window.setFixedSize(620, 460);
+}
+
+void View::setupConnections()
+{
+    QObject::connect(&window, &MainWindow::inputSignal, [this](int priority, QString const& description){
+        controller.taskInput(priority, description);
+    });
+
+    QObject::connect(&window, &MainWindow::removeSignal, [this](int priority, QString const& description){
+        controller.taskRemove(priority, description);
+    });
+
+    QObject::connect(&window, &MainWindow::saveSignal, [this](){
+        controller.saveList();
+    });
+
+    QObject::connect(&window, &MainWindow::openSignal, [this](){
+        controller.openList();
+    });
 }

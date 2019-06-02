@@ -16,6 +16,7 @@ TaskInputPanel::TaskInputPanel(QWidget *parent):
 
 {
     setupInterface();
+    setupConnections();
 }
 
 void TaskInputPanel::paintEvent(QPaintEvent *)
@@ -28,11 +29,15 @@ void TaskInputPanel::paintEvent(QPaintEvent *)
 
 void TaskInputPanel::inputSlot()
 {
-    emit inputValided(spinBox->value(), descriptionEdit->text());
+    emit inputSignal(spinBox->value(), descriptionEdit->text());
+    close();
 }
 
 void TaskInputPanel::setupInterface()
 {
+    setWindowTitle("Input Task");
+    setFixedSize(250, 100);
+
     setStyleSheet("QLabel{ color: white }"
                   "TaskInputPanel{ background-color: black }"
                   "QPushButton{ background-color: black; color: white }");
@@ -56,7 +61,7 @@ void TaskInputPanel::setupInterface()
     setCentralWidget(centralWidget);
 }
 
-void TaskInputPanel::setupInput()
+void TaskInputPanel::setupConnections()
 {
     QObject::connect(validButton, &QPushButton::clicked, this, &TaskInputPanel::inputSlot);
 }

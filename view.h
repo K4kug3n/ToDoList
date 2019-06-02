@@ -2,7 +2,6 @@
 #define VIEW_H
 
 #include "mainwindow.h"
-#include "commun.h"
 #include "model.h"
 #include "controller.h"
 #include "observer.h"
@@ -13,12 +12,14 @@ public:
     View(Model & model, Controller & controller);
 
     void display();
-    void update() override;
+    void input_update(int priority, QString const& description) override;
+    void delete_update(int priority, QString const& description) override;
 
     ~View() override;
 
 private:
-    void setup();
+    void setupInterface();
+    void setupConnections();
 
     MainWindow window;
     Model & model;

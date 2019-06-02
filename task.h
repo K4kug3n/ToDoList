@@ -1,11 +1,12 @@
-#ifndef COMMUN_H
-#define COMMUN_H
+#ifndef TASK_H
+#define TASK_H
 
 #include <QString>
 
-struct Task{
+struct Task
+{
     int priority;
     QString description;
 };
 
-#endif // COMMUN_H
+#endif // TASK_H

@@ -6,14 +6,15 @@
 
 TaskWidget::TaskWidget(int priority, QString const& description, QWidget *parent)
     : QWidget{ parent },
+      priority{ priority },
+      description{ description },
       priorityLabel{ new QLabel(QString::number(priority)) },
       descriptionLabel{ new QLabel(description) },
-      editButton{ new QPushButton("Edit") },
       deleteButton{ new QPushButton("Delete") },
       checkBox{ new QCheckBox() }
 {
+    setupConnections();
     setupInterface();
-    setupButtons();
 }
 
 void TaskWidget::paintEvent(QPaintEvent *)
@@ -24,28 +25,33 @@ void TaskWidget::paintEvent(QPaintEvent *)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
-void TaskWidget::editSlot()
+void TaskWidget::removeSlot()
 {
-    emit edited(2, "Things");
+    emit deleteSignal(priority, description);
 }
 
-void TaskWidget::deleteSlot()
+void TaskWidget::checkSlot(int state)
 {
-    emit deleted();
+
+    bool checked;
+    if(state == 0)
+    {
+        checked = false;
+    }
+    else
+    {
+        checked = true;
+    }
+
+    updateState(checked);
 }
 
 void TaskWidget::setupInterface()
 {
-    setStyleSheet("QLabel { color: white }"
-                  "TaskWidget{ border-bottom: 1px solid white }"
-                  "TaskWidget::hover{ background-color: grey; }");
-
-    editButton->resize(50, 50);
-    deleteButton->resize(50, 50);
+    updateState(false);
 
     QHBoxLayout * optionLayout{ new QHBoxLayout() };
     optionLayout->addWidget(checkBox);
-    optionLayout->addWidget(editButton);
     optionLayout->addWidget(deleteButton);
 
     QHBoxLayout * centralLayout{ new QHBoxLayout() };
@@ -55,8 +61,23 @@ void TaskWidget::setupInterface()
     this->setLayout(centralLayout);
 }
 
-void TaskWidget::setupButtons()
+void TaskWidget::setupConnections()
 {
-    QObject::connect(editButton, &QPushButton::clicked, this, &TaskWidget::editSlot);
-    QObject::connect(deleteButton, &QPushButton::clicked, this, &TaskWidget::deleteSlot);
+    QObject::connect(deleteButton, &QPushButton::clicked, this, &TaskWidget::removeSlot);
+    QObject::connect(checkBox, &QCheckBox::stateChanged, this, &TaskWidget::checkSlot);
+}
+
+void TaskWidget::updateState(bool checked)
+{
+    if(checked)
+    {
+        setStyleSheet("QLabel { color: white }"
+                      "TaskWidget{ border-bottom: 1px solid white; background-color: green }");
+    }
+    else
+    {
+        setStyleSheet("QLabel { color: white }"
+                      "TaskWidget{ border-bottom: 1px solid white; background-color: inherit }"
+                      "TaskWidget::hover{ background-color: grey; }");
+    }
 }

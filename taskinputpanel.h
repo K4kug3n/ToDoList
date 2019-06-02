@@ -15,7 +15,7 @@ public:
     void paintEvent(QPaintEvent * ) override;
 
 signals:
-    void inputValided(int priority, QString const& description);
+    void inputSignal(int priority, QString const& description);
 
 
 private slots:
@@ -23,7 +23,7 @@ private slots:
 
 private:
     void setupInterface();
-    void setupInput();
+    void setupConnections();
 
     QLineEdit * descriptionEdit;
     QSpinBox * spinBox;

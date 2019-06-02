@@ -2,7 +2,7 @@
 #define MODEL_H
 
 #include <vector>
-#include "commun.h"
+#include "task.h"
 #include "observable.h"
 
 class Model : public Observable

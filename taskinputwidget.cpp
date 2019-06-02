@@ -9,7 +9,7 @@ TaskInputWidget::TaskInputWidget(QWidget *parent):
     inputButton{ new QPushButton("+") }
 {
     setupInterface();
-    setupInput();
+    setupConnections();
 }
 
 void TaskInputWidget::paintEvent(QPaintEvent *)
@@ -20,17 +20,26 @@ void TaskInputWidget::paintEvent(QPaintEvent *)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
+void TaskInputWidget::inputSlot(int priority, const QString &description)
+{
+    emit inputSignal(priority, description);
+}
+
+void TaskInputWidget::showInputPanel()
+{
+    inputPanel.show();
+}
+
 void TaskInputWidget::setupInterface()
 {   
-    setStyleSheet("QPushButton{ background-color: black; color: white }"
-                  "QPushButton::hover{ background-color: grey; color: black }");
-
     QHBoxLayout * layout{ new QHBoxLayout() };
     layout->addWidget(inputButton);
     setLayout(layout);
+
 }
 
-void TaskInputWidget::setupInput()
+void TaskInputWidget::setupConnections()
 {
-    QObject::connect(inputButton, &QPushButton::clicked, &inputPanel, &TaskInputPanel::show);
+    QObject::connect(inputButton, &QPushButton::clicked, this, &TaskInputWidget::showInputPanel);
+    QObject::connect(&inputPanel, &TaskInputPanel::inputSignal, this, &TaskInputWidget::inputSlot);
 }

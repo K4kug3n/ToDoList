@@ -16,22 +16,25 @@ public:
 
     void paintEvent(QPaintEvent * ) override;
 
+    const int priority;
+    const QString description;
+
 signals:
-    void deleted();
-    void edited(int priority, QString description);
+    void deleteSignal(int priority, QString const& description);
+    void editSignal(int priority, QString description);
 
 private slots:
-    void editSlot();
-    void deleteSlot();
+    void removeSlot();
+    void checkSlot(int state);
 
 private:
 
     void setupInterface();
-    void setupButtons();
+    void setupConnections();
+    void updateState(bool checked);
 
     QLabel * priorityLabel;
     QLabel * descriptionLabel;
-    QPushButton * editButton;
     QPushButton * deleteButton;
     QCheckBox * checkBox;
 };
