@@ -19,7 +19,12 @@ public:
 
 private:
     void setupInterface();
+<<<<<<< HEAD:view.h
     void setupConnections();
+=======
+    void setupInput();
+    void setupDelete();
+>>>>>>> f359a0c0026ba333e7db66123c0441d64f65cd1a:View.h
 
     MainWindow window;
     Model & model;
