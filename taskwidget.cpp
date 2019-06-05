@@ -30,20 +30,9 @@ void TaskWidget::removeSlot()
     emit deleteSignal(priority, description);
 }
 
-void TaskWidget::checkSlot(int state)
+void TaskWidget::checkSlot(bool checked)
 {
-
-    bool checked;
-    if(state == 0)
-    {
-        checked = false;
-    }
-    else
-    {
-        checked = true;
-    }
-
-    updateState(checked);
+    emit checkSignal(priority, description, checked);
 }
 
 void TaskWidget::setupInterface()
@@ -64,7 +53,7 @@ void TaskWidget::setupInterface()
 void TaskWidget::setupConnections()
 {
     QObject::connect(deleteButton, &QPushButton::clicked, this, &TaskWidget::removeSlot);
-    QObject::connect(checkBox, &QCheckBox::stateChanged, this, &TaskWidget::checkSlot);
+    QObject::connect(checkBox, &QCheckBox::toggled, this, &TaskWidget::checkSlot);
 }
 
 void TaskWidget::updateState(bool checked)

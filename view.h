@@ -12,8 +12,9 @@ public:
     View(Model & model, Controller & controller);
 
     void display();
-    void input_update(int priority, QString const& description) override;
-    void delete_update(int priority, QString const& description) override;
+    void inputUpdate(int priority, QString const& description) override;
+    void deleteUpdate(int priority, QString const& description) override;
+    void checkUpdate(int priority, QString const& description, bool checked) override;
 
     ~View() override;
 

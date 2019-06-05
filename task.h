@@ -7,6 +7,7 @@ struct Task
 {
     int priority;
     QString description;
+    bool checked = false;
 };
 
 #endif // TASK_H

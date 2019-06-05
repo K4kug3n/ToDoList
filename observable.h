@@ -11,8 +11,9 @@ public:
     Observable();
 
     void addObserver(std::weak_ptr<Observer> const& obs);
-    void notify_input(int priority, QString const& description);
-    void notify_delete(int priority, QString const& description);
+    void notifyInput(int priority, QString const& description);
+    void notifyDelete(int priority, QString const& description);
+    void notifyCheck(int priority, QString const& description, bool checked);
 
 private:
     std::vector< std::weak_ptr<Observer> > observers;

@@ -13,6 +13,7 @@ class TaskWidget : public QWidget
 
 public:
     TaskWidget(int priority, QString const& description, QWidget *parent = nullptr);
+    void updateState(bool checked);
 
     void paintEvent(QPaintEvent * ) override;
 
@@ -21,17 +22,16 @@ public:
 
 signals:
     void deleteSignal(int priority, QString const& description);
-    void editSignal(int priority, QString description);
+    void checkSignal(int priority, QString const& description, bool checked);
 
 private slots:
     void removeSlot();
-    void checkSlot(int state);
+    void checkSlot(bool checked);
 
 private:
 
     void setupInterface();
     void setupConnections();
-    void updateState(bool checked);
 
     QLabel * priorityLabel;
     QLabel * descriptionLabel;

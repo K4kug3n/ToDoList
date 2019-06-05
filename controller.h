@@ -10,6 +10,7 @@ public:
 
     void taskInput(int priority, QString const& description);
     void taskRemove(int priority, QString const& description);
+    void taskCheck(int priority, QString const& description, bool checked);
     void saveList();
     void openList();
 

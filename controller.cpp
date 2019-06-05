@@ -17,6 +17,11 @@ void Controller::taskRemove(int priority, const QString &description)
     model.deleteTask( Task{ priority, description } );
 }
 
+void Controller::taskCheck(int priority, const QString &description, bool checked)
+{
+    model.checkTask( Task{ priority, description }, checked);
+}
+
 void Controller::saveList()
 {
     std::cout << "Saved" << std::endl;

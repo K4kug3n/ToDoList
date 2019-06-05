@@ -17,18 +17,21 @@ public:
 
     void addTask(int priority, QString const& description);
     void deleteTask(int priority, QString const& description);
+    void checkTask(int priority, QString const& description, bool checked);
 
     ~MainWindow();
 
 signals:
     void inputSignal(int piority, QString const& description);
     void removeSignal(int piority, QString const& description);
+    void checkSignal(int priority, QString const& description, bool checked);
     void saveSignal();
     void openSignal();
 
 private slots:
     void inputSlot(int priority, QString const& description);
     void removeSlot(int priority, QString const& description);
+    void checkSlot(int priority, QString const& description, bool checked);
     void saveSlot();
     void openSlot();
 

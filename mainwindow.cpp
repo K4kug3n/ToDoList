@@ -47,6 +47,14 @@ void MainWindow::deleteTask(int priority, QString const& description)
     taskWidgets.erase(tasks_it);
 }
 
+void MainWindow::checkTask(int priority, const QString &description, bool checked)
+{
+    const auto tasks_it = std::find_if(taskWidgets.begin(), taskWidgets.end(),
+                [priority, description](auto t) { return (priority == t->priority && description == t->description); });
+
+    (*tasks_it)->updateState(checked);
+}
+
 void MainWindow::setupInterface()
 {
     QWidget * centralWidget{ new QWidget()};
@@ -106,6 +114,7 @@ void MainWindow::setupMenu()
 void MainWindow::setupConnection(TaskWidget * widget)
 {
     QObject::connect(widget, &TaskWidget::deleteSignal, this, &MainWindow::removeSlot);
+    QObject::connect(widget, &TaskWidget::checkSignal, this, &MainWindow::checkSlot);
 }
 
 MainWindow::~MainWindow()
@@ -120,6 +129,11 @@ void MainWindow::inputSlot(int priority, const QString &description)
 void MainWindow::removeSlot(int priority, const QString &description)
 {
     emit removeSignal(priority, description);
+}
+
+void MainWindow::checkSlot(int priority, const QString &description, bool checked)
+{
+    emit checkSignal(priority, description, checked);
 }
 
 void MainWindow::saveSlot()
