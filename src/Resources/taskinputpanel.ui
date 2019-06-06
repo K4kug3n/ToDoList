@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TaskInputPanel</class>
+ <widget class="QDialog" name="TaskInputPanel">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>344</width>
+    <height>162</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">TaskInputPanel{ background-color: black }
+QLabel{ color: white }
+</string>
+  </property>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>351</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="centralLayout" stretch="1,1,0">
+    <property name="spacing">
+     <number>6</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="priorityLayout" stretch="1,2">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="rightMargin">
+       <number>20</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="priorityLabel">
+        <property name="text">
+         <string>Priority :</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="prioritySpin">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="descriptionLayout" stretch="1,2">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="rightMargin">
+       <number>20</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="descriptionLabel">
+        <property name="text">
+         <string>Description :</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="descriptionEdit"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="validationLayout">
+      <property name="leftMargin">
+       <number>20</number>
+      </property>
+      <property name="rightMargin">
+       <number>20</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="cancelButton">
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="validButton">
+        <property name="text">
+         <string>Ok</string>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>validButton</sender>
+   <signal>clicked()</signal>
+   <receiver>TaskInputPanel</receiver>
+   <slot>inputSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>329</x>
+     <y>158</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>343</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelButton</sender>
+   <signal>clicked()</signal>
+   <receiver>TaskInputPanel</receiver>
+   <slot>cancelSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>100</x>
+     <y>148</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>12</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>inputSlot()</slot>
+  <slot>cancelSlot()</slot>
+ </slots>
+</ui>
