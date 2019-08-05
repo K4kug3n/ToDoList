@@ -4,13 +4,11 @@
 #include <QScrollArea>
 #include <QScrollBar>
 
-#include <QPalette>
-#include <QColor>
-#include <QRgb>
-
 #include <QMenuBar>
+#include <QFileDialog>
 
 #include <algorithm>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow{ parent },
@@ -22,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupMenu();
 }
 
-void MainWindow::addTask(int priority, QString const& description)
+void MainWindow::addTask(int priority, QString const& description, bool checked)
 {
     TaskWidget * taskWidget{ new TaskWidget(priority, description) };
     taskWidget->setFixedHeight(60);
@@ -31,6 +29,7 @@ void MainWindow::addTask(int priority, QString const& description)
     int index{ static_cast<int>(taskWidgets.size()) };
     taskLayout->insertWidget(index, taskWidget);
 
+    taskWidget->updateState(checked);
     setupConnection(taskWidget);
 
     taskWidgets.push_back(taskWidget);
@@ -138,10 +137,18 @@ void MainWindow::checkSlot(int priority, const QString &description, bool checke
 
 void MainWindow::saveSlot()
 {
-    emit saveSignal();
+    const QString filePath{ QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                         QDir::currentPath(),
+                                                         tr("XML files (*.xml)")) };
+
+    emit saveSignal(filePath);
 }
 
 void MainWindow::openSlot()
 {
-    emit openSignal();
+    const QString filePath{ QFileDialog::getOpenFileName(this, tr("Open File"),
+                                         QDir::currentPath(),
+                                         tr("XML files (*.xml)")) };
+
+    emit openSignal(filePath);
 }

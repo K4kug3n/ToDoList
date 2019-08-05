@@ -62,12 +62,14 @@ void TaskWidget::updateState(bool checked)
     {
         setStyleSheet("QLabel { color: white }"
                       "TaskWidget{ border-bottom: 1px solid white; background-color: green }");
+        checkBox->setCheckState(Qt::CheckState::Checked);
     }
     else
     {
         setStyleSheet("QLabel { color: white }"
                       "TaskWidget{ border-bottom: 1px solid white; background-color: inherit }"
                       "TaskWidget::hover{ background-color: grey; }");
+        checkBox->setCheckState(Qt::CheckState::Unchecked);
     }
 }
 

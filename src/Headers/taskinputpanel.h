@@ -1,29 +1,35 @@
 #ifndef TASKINPUTPANEL_H
 #define TASKINPUTPANEL_H
 
-#include <QDialog>
+#include <QMainWindow>
+#include <QSpinBox>
+#include <QLineEdit>
+#include <QPushButton>
 
-namespace Ui {
-class TaskInputPanel;
-}
-
-class TaskInputPanel : public QDialog
+class TaskInputPanel : public QMainWindow
 {
     Q_OBJECT
-
 public:
-    explicit TaskInputPanel(QWidget *parent = nullptr);
-    ~TaskInputPanel();
+    TaskInputPanel(QWidget *parent = nullptr);
+
+    void paintEvent(QPaintEvent * ) override;
+
+    ~TaskInputPanel() override;
 
 signals:
     void inputSignal(int priority, QString const& description);
 
+
 private slots:
     void inputSlot();
-    void cancelSlot();
 
 private:
-    Ui::TaskInputPanel *ui;
+    void setupInterface();
+    void setupConnections();
+
+    QLineEdit * descriptionEdit;
+    QSpinBox * spinBox;
+    QPushButton * validButton;
 };
 
 #endif // TASKINPUTPANEL_H

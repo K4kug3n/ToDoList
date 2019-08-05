@@ -10,7 +10,7 @@ Model::Model()
 void Model::addTask(Task const& task)
 {
     tasks.push_back(task);
-    notifyInput(task.priority, task.description);
+    notifyInput(task.priority, task.description, task.checked);
 }
 
 void Model::deleteTask(Task const& task)
@@ -30,6 +30,16 @@ void Model::checkTask(const Task &task, bool checked)
     (*tasks_it).checked = checked;
 
     notifyCheck(task.priority, task.description, checked);
+}
+
+void Model::clear()
+{
+    for(auto const& task : tasks)
+    {
+        notifyDelete(task.priority, task.description);
+    }
+
+    tasks.clear();
 }
 
 std::vector<Task> Model::getTasks() const

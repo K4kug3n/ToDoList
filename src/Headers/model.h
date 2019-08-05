@@ -13,6 +13,8 @@ public:
     void addTask(Task const& task);
     void deleteTask(Task const& task);
     void checkTask(Task const& task, bool checked);
+
+    void clear();
     std::vector<Task> getTasks() const;
 
 private:

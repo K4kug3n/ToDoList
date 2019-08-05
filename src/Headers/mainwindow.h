@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
 
-    void addTask(int priority, QString const& description);
+    void addTask(int priority, QString const& description, bool checked);
     void deleteTask(int priority, QString const& description);
     void checkTask(int priority, QString const& description, bool checked);
 
@@ -25,8 +25,8 @@ signals:
     void inputSignal(int piority, QString const& description);
     void removeSignal(int piority, QString const& description);
     void checkSignal(int priority, QString const& description, bool checked);
-    void saveSignal();
-    void openSignal();
+    void saveSignal(QString const& path);
+    void openSignal(QString const& path);
 
 private slots:
     void inputSlot(int priority, QString const& description);

@@ -25,9 +25,9 @@ void View::deleteUpdate(int priority, QString const& description)
     window.deleteTask(priority, description);
 }
 
-void View::inputUpdate(int priority, QString const& description)
+void View::inputUpdate(int priority, QString const& description, bool checked)
 {
-    window.addTask(priority, description);
+    window.addTask(priority, description, checked);
 }
 
 View::~View()
@@ -53,11 +53,11 @@ void View::setupConnections()
         controller.taskCheck(priority, description, checked);
     });
 
-    QObject::connect(&window, &MainWindow::saveSignal, [this](){
-        controller.saveList();
+    QObject::connect(&window, &MainWindow::saveSignal, [this](QString const& path){
+        controller.saveList(path);
     });
 
-    QObject::connect(&window, &MainWindow::openSignal, [this](){
-        controller.openList();
+    QObject::connect(&window, &MainWindow::openSignal, [this](QString const& path){
+        controller.openList(path);
     });
 }

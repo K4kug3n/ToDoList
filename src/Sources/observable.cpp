@@ -27,12 +27,12 @@ void Observable::notifyDelete(int priority, QString const& description)
     }
 }
 
-void Observable::notifyInput(int priority, QString const& description)
+void Observable::notifyInput(int priority, QString const& description, bool checked)
 {
     for(auto & weak_obs : observers)
     {
         auto obs_ptr{ weak_obs.lock() };
-        obs_ptr->inputUpdate(priority, description);
+        obs_ptr->inputUpdate(priority, description, checked);
     }
 
 }

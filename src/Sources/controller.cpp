@@ -1,6 +1,6 @@
 #include "controller.h"
-
-#include <iostream>
+#include "taskwriter.h"
+#include "readerfunctions.h"
 
 Controller::Controller(Model & model):
     model{ model }
@@ -22,14 +22,24 @@ void Controller::taskCheck(int priority, const QString &description, bool checke
     model.checkTask( Task{ priority, description }, checked);
 }
 
-void Controller::saveList()
+void Controller::saveList(QString const& path)
 {
-    std::cout << "Saved" << std::endl;
-    //TODO
+    TaskWriter writer;
+
+    for(auto const& task : model.getTasks())
+    {
+        writer.write(task);
+    }
+
+    writer.save(path.toStdString());
 }
 
-void Controller::openList()
+void Controller::openList(QString const& path)
 {
-    std::cout << "Open" << std::endl;
-    //TODO
+    model.clear();
+
+   for(auto const& task : getTasksFrom(path.toStdString()))
+   {
+        model.addTask(task);
+   }
 }
