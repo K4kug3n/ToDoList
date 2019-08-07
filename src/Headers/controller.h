@@ -8,12 +8,12 @@ class Controller
 public:
     Controller(Model & model);
 
-    void taskInput(int priority, QString const& description);
-    void taskRemove(int priority, QString const& description);
-    void taskCheck(int priority, QString const& description, bool checked);
+    void taskInput(int priority, std::string const& description);
+    void taskRemove(int priority, std::string const& description);
+    void taskCheck(int priority, std::string const& description, bool checked);
 
-    void saveList(QString const& path);
-    void openList(QString const& path);
+    void saveList(std::string const& path);
+    void openList(std::string const& path);
 
 private:
     Model & model;

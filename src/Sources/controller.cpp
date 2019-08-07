@@ -7,38 +7,38 @@ Controller::Controller(Model & model):
 {
 }
 
-void Controller::taskInput(int priority, QString const& description)
+void Controller::taskInput(int priority, std::string const& description)
 {
     model.addTask( Task{ priority, description } );
 }
 
-void Controller::taskRemove(int priority, const QString &description)
+void Controller::taskRemove(int priority, const std::string &description)
 {
     model.deleteTask( Task{ priority, description } );
 }
 
-void Controller::taskCheck(int priority, const QString &description, bool checked)
+void Controller::taskCheck(int priority, const std::string &description, bool checked)
 {
     model.checkTask( Task{ priority, description }, checked);
 }
 
-void Controller::saveList(QString const& path)
+void Controller::saveList(std::string const& path)
 {
     TaskWriter writer;
 
-    for(auto const& task : model.getTasks())
+    for(auto it{ model.begin() }; it != model.end(); it++)
     {
-        writer.write(task);
+        writer.write(*it);
     }
 
-    writer.save(path.toStdString());
+    writer.save(path);
 }
 
-void Controller::openList(QString const& path)
+void Controller::openList(std::string const& path)
 {
     model.clear();
 
-   for(auto const& task : getTasksFrom(path.toStdString()))
+   for(auto const& task : getTasksFrom(path))
    {
         model.addTask(task);
    }

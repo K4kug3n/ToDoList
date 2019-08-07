@@ -11,7 +11,7 @@ Task readTask(const pugi::xml_node & taskNode)
     std::string description{ taskNode.attribute("description").as_string() };
     bool checked{ taskNode.attribute("checked").as_bool() };
 
-    return Task{ priority, QString::fromStdString(description), checked };
+    return Task{ priority, description, checked };
 }
 
 std::vector<Task> readTasks(const pugi::xml_document &doc)

@@ -9,7 +9,7 @@ void Observable::addObserver(std::weak_ptr<Observer> const& obs)
     observers.push_back(obs);
 }
 
-void Observable::notifyCheck(int priority, const QString &description, bool checked)
+void Observable::notifyCheck(int priority, const std::string &description, bool checked)
 {
     for(auto & weak_obs : observers)
     {
@@ -18,7 +18,7 @@ void Observable::notifyCheck(int priority, const QString &description, bool chec
     }
 }
 
-void Observable::notifyDelete(int priority, QString const& description)
+void Observable::notifyDelete(int priority, std::string const& description)
 {
     for(auto & weak_obs : observers)
     {
@@ -27,7 +27,7 @@ void Observable::notifyDelete(int priority, QString const& description)
     }
 }
 
-void Observable::notifyInput(int priority, QString const& description, bool checked)
+void Observable::notifyInput(int priority, std::string const& description, bool checked)
 {
     for(auto & weak_obs : observers)
     {

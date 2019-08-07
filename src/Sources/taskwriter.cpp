@@ -12,7 +12,7 @@ void TaskWriter::write(Task const& task)
     pugi::xml_node taskNode{ rootNode.append_child("Task") };
 
     taskNode.append_attribute("priority").set_value(task.priority);
-    taskNode.append_attribute("description").set_value(task.description.toStdString().c_str());
+    taskNode.append_attribute("description").set_value(task.description.c_str());
     taskNode.append_attribute("checked").set_value(task.checked);
 }
 

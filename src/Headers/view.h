@@ -12,9 +12,9 @@ public:
     View(Model & model, Controller & controller);
 
     void display();
-    void inputUpdate(int priority, QString const& description, bool checked) override;
-    void deleteUpdate(int priority, QString const& description) override;
-    void checkUpdate(int priority, QString const& description, bool checked) override;
+    void inputUpdate(int priority, std::string const& description, bool checked) override;
+    void deleteUpdate(int priority, std::string const& description) override;
+    void checkUpdate(int priority, std::string const& description, bool checked) override;
 
     ~View() override;
 

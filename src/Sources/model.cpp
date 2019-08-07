@@ -25,7 +25,7 @@ void Model::deleteTask(Task const& task)
 
 void Model::checkTask(const Task &task, bool checked)
 {
-    const auto tasks_it = std::find_if(tasks.begin(), tasks.end(),
+    auto tasks_it = std::find_if(tasks.begin(), tasks.end(),
                 [task](auto t) { return (task.priority == t.priority && task.description == t.description); });
     (*tasks_it).checked = checked;
 
@@ -42,7 +42,27 @@ void Model::clear()
     tasks.clear();
 }
 
-std::vector<Task> Model::getTasks() const
+bool Model::empty()
 {
-    return tasks;
+    return tasks.empty();
+}
+
+Model::iterator Model::begin()
+{
+    return tasks.begin();
+}
+
+Model::iterator Model::end()
+{
+    return tasks.end();
+}
+
+Model::const_iterator Model::begin() const
+{
+    return tasks.cbegin();
+}
+
+Model::const_iterator Model::end() const
+{
+    return tasks.end();
 }
