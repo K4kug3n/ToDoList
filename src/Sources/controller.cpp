@@ -9,17 +9,17 @@ Controller::Controller(Model & model):
 
 void Controller::taskInput(int priority, std::string const& description)
 {
-    model.addTask( Task{ priority, description } );
+    model.addTask(priority, description);
 }
 
-void Controller::taskRemove(int priority, const std::string &description)
+void Controller::taskRemove(size_t id)
 {
-    model.deleteTask( Task{ priority, description } );
+    model.deleteTask(id);
 }
 
-void Controller::taskCheck(int priority, const std::string &description, bool checked)
+void Controller::taskCheck(size_t id, bool checked)
 {
-    model.checkTask( Task{ priority, description }, checked);
+    model.checkTask(id, checked);
 }
 
 void Controller::saveList(std::string const& path)
@@ -28,9 +28,10 @@ void Controller::saveList(std::string const& path)
 
     for(auto it{ model.begin() }; it != model.end(); it++)
     {
-        writer.write(*it);
+        writer.writeTask(*it);
     }
 
+    writer.saveNextID(model.nextID);
     writer.save(path);
 }
 
@@ -40,6 +41,8 @@ void Controller::openList(std::string const& path)
 
    for(auto const& task : getTasksFrom(path))
    {
-        model.addTask(task);
+        model.addTask(task.id, task.priority, task.description, task.checked);
    }
+
+   model.nextID = readNextIDFrom(path);
 }

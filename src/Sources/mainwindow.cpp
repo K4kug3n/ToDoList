@@ -20,9 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     setupMenu();
 }
 
-void MainWindow::addTask(int priority, QString const& description, bool checked)
+void MainWindow::addTask(size_t id, int priority, QString const& description, bool checked)
 {
-    TaskWidget * taskWidget{ new TaskWidget(priority, description) };
+    TaskWidget * taskWidget{ new TaskWidget(id, priority, description) };
     taskWidget->setFixedHeight(60);
     taskWidget->setMaximumWidth(620);
 
@@ -35,10 +35,10 @@ void MainWindow::addTask(int priority, QString const& description, bool checked)
     taskWidgets.push_back(taskWidget);
 }
 
-void MainWindow::deleteTask(int priority, QString const& description)
+void MainWindow::deleteTask(size_t id)
 {
     const auto tasks_it = std::find_if(taskWidgets.begin(), taskWidgets.end(),
-                [priority, description](auto t) { return (priority == t->priority && description == t->description); });
+                [id](TaskWidget * t) { return (t->id == id); });
 
     taskLayout->removeWidget(*tasks_it);
     (*tasks_it)->deleteLater();
@@ -46,10 +46,10 @@ void MainWindow::deleteTask(int priority, QString const& description)
     taskWidgets.erase(tasks_it);
 }
 
-void MainWindow::checkTask(int priority, const QString &description, bool checked)
+void MainWindow::checkTask(size_t id, bool checked)
 {
     const auto tasks_it = std::find_if(taskWidgets.begin(), taskWidgets.end(),
-                [priority, description](auto t) { return (priority == t->priority && description == t->description); });
+                [id](TaskWidget * t) { return (t->id == id); });
 
     (*tasks_it)->updateState(checked);
 }
@@ -125,14 +125,14 @@ void MainWindow::inputSlot(int priority, const QString &description)
     emit inputSignal(priority, description);
 }
 
-void MainWindow::removeSlot(int priority, const QString &description)
+void MainWindow::removeSlot(size_t id)
 {
-    emit removeSignal(priority, description);
+    emit removeSignal(id);
 }
 
-void MainWindow::checkSlot(int priority, const QString &description, bool checked)
+void MainWindow::checkSlot(size_t id, bool checked)
 {
-    emit checkSignal(priority, description, checked);
+    emit checkSignal(id, checked);
 }
 
 void MainWindow::saveSlot()
@@ -140,7 +140,6 @@ void MainWindow::saveSlot()
     const QString filePath{ QFileDialog::getSaveFileName(this, tr("Save File"),
                                                          QDir::currentPath(),
                                                          tr("XML files (*.xml)")) };
-
     emit saveSignal(filePath);
 }
 

@@ -11,5 +11,6 @@ Task readTask(pugi::xml_node const& taskNode);
 std::vector<Task> readTasks(pugi::xml_document const& doc);
 
 std::vector<Task> getTasksFrom(std::string const& path);
+size_t readNextIDFrom(std::string const& path);
 
 #endif // READERFUNCTIONS_H

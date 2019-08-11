@@ -12,23 +12,23 @@ View::View(Model & model, Controller & controller):
 }
 
 void View::display()
-{   
+{
     window.show();
 }
 
-void View::checkUpdate(int priority, const std::string &description, bool checked)
+void View::checkUpdate(size_t id, bool checked)
 {
-    window.checkTask(priority, QString::fromStdString(description), checked);
+    window.checkTask(id, checked);
 }
 
-void View::deleteUpdate(int priority, std::string const& description)
+void View::deleteUpdate(size_t id)
 {
-    window.deleteTask(priority, QString::fromStdString(description));
+    window.deleteTask(id);
 }
 
-void View::inputUpdate(int priority, std::string const& description, bool checked)
+void View::inputUpdate(size_t id, int priority, std::string const& description, bool checked)
 {
-    window.addTask(priority, QString::fromStdString(description), checked);
+    window.addTask(id, priority, QString::fromStdString(description), checked);
 }
 
 View::~View()
@@ -46,12 +46,12 @@ void View::setupConnections()
         controller.taskInput(priority, description.toStdString());
     });
 
-    QObject::connect(&window, &MainWindow::removeSignal, [this](int priority, QString const& description){
-        controller.taskRemove(priority, description.toStdString());
+    QObject::connect(&window, &MainWindow::removeSignal, [this](size_t id){
+        controller.taskRemove(id);
     });
 
-    QObject::connect(&window, &MainWindow::checkSignal, [this](int priority, QString const& description, bool checked){
-        controller.taskCheck(priority, description.toStdString(), checked);
+    QObject::connect(&window, &MainWindow::checkSignal, [this](size_t id, bool checked){
+        controller.taskCheck(id, checked);
     });
 
     QObject::connect(&window, &MainWindow::saveSignal, [this](QString const& path){

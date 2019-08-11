@@ -9,8 +9,8 @@ public:
     Controller(Model & model);
 
     void taskInput(int priority, std::string const& description);
-    void taskRemove(int priority, std::string const& description);
-    void taskCheck(int priority, std::string const& description, bool checked);
+    void taskRemove(size_t id);
+    void taskCheck(size_t id, bool checked);
 
     void saveList(std::string const& path);
     void openList(std::string const& path);

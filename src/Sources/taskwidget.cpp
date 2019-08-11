@@ -4,10 +4,9 @@
 #include <QStyleOption>
 #include <QPainter>
 
-TaskWidget::TaskWidget(int priority, QString const& description, QWidget *parent)
+TaskWidget::TaskWidget(size_t id, int priority, QString const& description, QWidget *parent)
     : QWidget{ parent },
-      priority{ priority },
-      description{ description },
+      id{ id },
       priorityLabel{ new QLabel(QString::number(priority)) },
       descriptionLabel{ new QLabel(description) },
       deleteButton{ new QPushButton("Delete") },
@@ -27,12 +26,12 @@ void TaskWidget::paintEvent(QPaintEvent *)
 
 void TaskWidget::removeSlot()
 {
-    emit deleteSignal(priority, description);
+    emit deleteSignal(id);
 }
 
 void TaskWidget::checkSlot(bool checked)
 {
-    emit checkSignal(priority, description, checked);
+    emit checkSignal(id, checked);
 }
 
 void TaskWidget::setupInterface()

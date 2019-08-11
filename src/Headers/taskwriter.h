@@ -12,7 +12,8 @@ class TaskWriter
 public:
     TaskWriter();
 
-    void write(Task const& task);
+    void writeTask(Task const& task);
+    void saveNextID(size_t id);
     void save(std::string const& path);
 
 private:

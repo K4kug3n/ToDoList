@@ -15,23 +15,23 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
 
-    void addTask(int priority, QString const& description, bool checked);
-    void deleteTask(int priority, QString const& description);
-    void checkTask(int priority, QString const& description, bool checked);
+    void addTask(size_t id, int priority, QString const& description, bool checked);
+    void deleteTask(size_t id);
+    void checkTask(size_t id, bool checked);
 
     ~MainWindow();
 
 signals:
     void inputSignal(int piority, QString const& description);
-    void removeSignal(int piority, QString const& description);
-    void checkSignal(int priority, QString const& description, bool checked);
+    void removeSignal(size_t id);
+    void checkSignal(size_t id, bool checked);
     void saveSignal(QString const& path);
     void openSignal(QString const& path);
 
 private slots:
     void inputSlot(int priority, QString const& description);
-    void removeSlot(int priority, QString const& description);
-    void checkSlot(int priority, QString const& description, bool checked);
+    void removeSlot(size_t id);
+    void checkSlot(size_t id, bool checked);
     void saveSlot();
     void openSlot();
 

@@ -1,45 +1,51 @@
 #include "model.h"
 
 #include <algorithm>
-#include <iostream>
 
-Model::Model()
+Model::Model() : //ADD DEFAULT ID PARAMETER ?
+    nextID{ 0 }
 {
 }
 
-void Model::addTask(Task const& task)
+void Model::addTask(int priority, std::string const& description)
 {
-    tasks.push_back(task);
-    notifyInput(task.priority, task.description, task.checked);
+    addTask(nextID, priority, description, false);
+    ++nextID;
 }
 
-void Model::deleteTask(Task const& task)
+void Model::addTask(size_t id, int priority, const std::string & description, bool checked)
 {
-    const auto tasks_it = std::find_if(tasks.begin(), tasks.end(),
-                [task](auto t) { return (task.priority == t.priority && task.description == t.description); });
-    tasks.erase(tasks_it);
-
-
-    notifyDelete(task.priority, task.description);
+    tasks.push_back( Task{ id, priority, description, checked } );
+    notifyInput(id, priority, description, checked);
 }
 
-void Model::checkTask(const Task &task, bool checked)
+void Model::deleteTask(size_t id)
+{
+    std::remove_if(tasks.begin(), tasks.end(), [id](Task const& t){
+        return t.id == id;
+    });
+
+    notifyDelete(id);
+}
+
+void Model::checkTask(size_t id, bool checked)
 {
     auto tasks_it = std::find_if(tasks.begin(), tasks.end(),
-                [task](auto t) { return (task.priority == t.priority && task.description == t.description); });
+                [id](Task const& t) { return (t.id == id); });
     (*tasks_it).checked = checked;
 
-    notifyCheck(task.priority, task.description, checked);
+    notifyCheck(id, checked);
 }
 
 void Model::clear()
 {
     for(auto const& task : tasks)
     {
-        notifyDelete(task.priority, task.description);
+        notifyDelete(task.id); //notifyClear()
     }
 
     tasks.clear();
+    nextID = 0;
 }
 
 bool Model::empty()

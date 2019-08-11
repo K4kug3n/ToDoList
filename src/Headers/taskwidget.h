@@ -12,17 +12,16 @@ class TaskWidget : public QWidget
     Q_OBJECT
 
 public:
-    TaskWidget(int priority, QString const& description, QWidget *parent = nullptr);
+    TaskWidget(size_t id, int priority, QString const& description, QWidget *parent = nullptr);
     void updateState(bool checked);
 
     void paintEvent(QPaintEvent * ) override;
 
-    const int priority;
-    const QString description;
+    const size_t id;
 
 signals:
-    void deleteSignal(int priority, QString const& description);
-    void checkSignal(int priority, QString const& description, bool checked);
+    void deleteSignal(size_t id);
+    void checkSignal(size_t id, bool checked);
 
 private slots:
     void removeSlot();

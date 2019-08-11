@@ -10,9 +10,10 @@ class Model : public Observable
 public:
     Model();
 
-    void addTask(Task const& task);
-    void deleteTask(Task const& task);
-    void checkTask(Task const& task, bool checked);
+    void addTask(int priority, std::string const& description);
+    void addTask(size_t id, int priority, std::string const& description, bool checked);
+    void deleteTask(size_t id);
+    void checkTask(size_t id, bool checked);
 
     void clear();
     bool empty();
@@ -24,6 +25,8 @@ public:
     using const_iterator = typename std::vector<Task>::const_iterator;
     const_iterator begin() const;
     const_iterator end() const;
+
+    size_t nextID;
 
 private:
     std::vector<Task> tasks;

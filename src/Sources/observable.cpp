@@ -9,30 +9,30 @@ void Observable::addObserver(std::weak_ptr<Observer> const& obs)
     observers.push_back(obs);
 }
 
-void Observable::notifyCheck(int priority, const std::string &description, bool checked)
+void Observable::notifyCheck(size_t id, bool checked)
 {
     for(auto & weak_obs : observers)
     {
         auto obs_ptr{ weak_obs.lock() };
-        obs_ptr->checkUpdate(priority, description, checked);
+        obs_ptr->checkUpdate(id, checked);
     }
 }
 
-void Observable::notifyDelete(int priority, std::string const& description)
+void Observable::notifyDelete(size_t id)
 {
     for(auto & weak_obs : observers)
     {
         auto obs_ptr{ weak_obs.lock() };
-        obs_ptr->deleteUpdate(priority, description);
+        obs_ptr->deleteUpdate(id);
     }
 }
 
-void Observable::notifyInput(int priority, std::string const& description, bool checked)
+void Observable::notifyInput(size_t id, int priority, std::string const& description, bool checked)
 {
     for(auto & weak_obs : observers)
     {
         auto obs_ptr{ weak_obs.lock() };
-        obs_ptr->inputUpdate(priority, description, checked);
+        obs_ptr->inputUpdate(id, priority, description, checked);
     }
 
 }
