@@ -27,6 +27,15 @@ void Observable::notifyDelete(size_t id)
     }
 }
 
+void Observable::notifyClear()
+{
+    for(auto & weak_obs : observers)
+    {
+        auto obs_ptr{ weak_obs.lock() };
+        obs_ptr->clearUpdate();
+    }
+}
+
 void Observable::notifyInput(size_t id, int priority, std::string const& description, bool checked)
 {
     for(auto & weak_obs : observers)
@@ -36,4 +45,6 @@ void Observable::notifyInput(size_t id, int priority, std::string const& descrip
     }
 
 }
+
+
 

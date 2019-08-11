@@ -10,6 +10,7 @@ public:
 
     virtual void inputUpdate(size_t id, int priority, std::string const& description, bool checked) = 0;
     virtual void deleteUpdate(size_t id) = 0;
+    virtual void clearUpdate();
     virtual void checkUpdate(size_t id, bool checked) = 0;
 
     virtual ~Observer();

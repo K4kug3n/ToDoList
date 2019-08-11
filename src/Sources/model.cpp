@@ -39,10 +39,7 @@ void Model::checkTask(size_t id, bool checked)
 
 void Model::clear()
 {
-    for(auto const& task : tasks)
-    {
-        notifyDelete(task.id); //notifyClear()
-    }
+    notifyClear();
 
     tasks.clear();
     nextID = 0;

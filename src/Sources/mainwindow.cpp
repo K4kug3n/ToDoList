@@ -46,6 +46,17 @@ void MainWindow::deleteTask(size_t id)
     taskWidgets.erase(tasks_it);
 }
 
+void MainWindow::clearTasks()
+{
+    for(auto * widget : taskWidgets)
+    {
+        taskLayout->removeWidget(widget);
+        widget->deleteLater();
+    }
+
+    taskWidgets.clear();
+}
+
 void MainWindow::checkTask(size_t id, bool checked)
 {
     const auto tasks_it = std::find_if(taskWidgets.begin(), taskWidgets.end(),

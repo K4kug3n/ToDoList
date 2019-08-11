@@ -17,6 +17,7 @@ public:
 
     void addTask(size_t id, int priority, QString const& description, bool checked);
     void deleteTask(size_t id);
+    void clearTasks();
     void checkTask(size_t id, bool checked);
 
     ~MainWindow();

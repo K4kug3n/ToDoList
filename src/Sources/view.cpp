@@ -26,6 +26,11 @@ void View::deleteUpdate(size_t id)
     window.deleteTask(id);
 }
 
+void View::clearUpdate()
+{
+    window.clearTasks();
+}
+
 void View::inputUpdate(size_t id, int priority, std::string const& description, bool checked)
 {
     window.addTask(id, priority, QString::fromStdString(description), checked);
