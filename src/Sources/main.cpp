@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
     Model myModel{};
     Controller myController{ myModel };
-    auto ptrView = std::make_shared<View>(myModel, myController);
+    auto ptrView = std::make_shared<View>(myController);
 
     myModel.addObserver(ptrView);
 

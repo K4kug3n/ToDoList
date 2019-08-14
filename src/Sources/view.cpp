@@ -3,8 +3,7 @@
 #include <iostream>
 #include <QString>
 
-View::View(Model & model, Controller & controller):
-    model{ model },
+View::View(Controller & controller):
     controller{ controller }
 {
     setupInterface();

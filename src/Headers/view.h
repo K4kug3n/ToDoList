@@ -9,7 +9,7 @@
 class View : public Observer
 {
 public:
-    View(Model & model, Controller & controller);
+    View(Controller & controller);
 
     void display();
     void inputUpdate(size_t id, int priority, std::string const& description, bool checked) override;
@@ -26,7 +26,6 @@ private:
     void setupDelete();
 
     MainWindow window;
-    Model & model;
     Controller & controller;
 };
 
